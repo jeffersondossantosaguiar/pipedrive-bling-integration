@@ -1,4 +1,12 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
+import { PipedriveService } from './pipedrive.service';
 
 @Controller('pipedrive')
-export class PipedriveController {}
+export class PipedriveController {
+  constructor(private readonly service: PipedriveService) { }
+
+  @Get()
+  public async getDeals(): Promise<any> {
+    return await this.service.getDeals();
+  }
+}
