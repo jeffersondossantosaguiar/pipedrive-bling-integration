@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import axios, { AxiosResponse } from 'axios';
+import { IDealDTO } from './dtos/deal-dto';
 
 @Injectable()
 export class PipedriveService {
@@ -8,6 +9,10 @@ export class PipedriveService {
       `${process.env.PIPEDRIVE_BASE_URL}/deals?api_token=${process.env.PIPEDRIVE_KEY}`,
     );
 
-    console.log(result.data);
+    const deals: IDealDTO[] = result.data.data;
+
+    deals.forEach((deal) => {
+      console.log(deal.org_id);
+    });
   }
 }
