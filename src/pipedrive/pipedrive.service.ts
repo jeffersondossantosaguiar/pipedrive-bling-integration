@@ -4,15 +4,19 @@ import { IDealDTO } from './dtos/deal-dto';
 
 @Injectable()
 export class PipedriveService {
-  public async getDeals() {
+  public async getWonDeals(): Promise<IDealDTO[]> {
     const result: AxiosResponse = await axios.get(
-      `${process.env.PIPEDRIVE_BASE_URL}/deals?api_token=${process.env.PIPEDRIVE_KEY}`,
+      `${process.env.PIPEDRIVE_BASE_URL}/deals`,
+      {
+        params: {
+          api_token: process.env.PIPEDRIVE_API_KEY,
+          status: 'won',
+        },
+      },
     );
 
     const deals: IDealDTO[] = result.data.data;
 
-    deals.forEach((deal) => {
-      console.log(deal.org_id);
-    });
+    return deals;
   }
 }
