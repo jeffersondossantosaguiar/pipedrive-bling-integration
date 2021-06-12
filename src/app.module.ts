@@ -1,11 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AppController } from './app.controller';
+import { MongooseModule } from '@nestjs/mongoose';
 import { AppService } from './app.service';
 import { BlingModule } from './bling/bling.module';
-import { IntegrationController } from './integration/integration.controller';
 import { IntegrationModule } from './integration/integration.module';
-import { IntegrationService } from './integration/integration.service';
 import { PipedriveModule } from './pipedrive/pipedrive.module';
 
 @Module({
@@ -14,8 +12,8 @@ import { PipedriveModule } from './pipedrive/pipedrive.module';
     PipedriveModule,
     IntegrationModule,
     BlingModule,
+    MongooseModule.forRoot(process.env.MONGO_DB_KEY),
   ],
-  controllers: [AppController, IntegrationController],
-  providers: [AppService, IntegrationService],
+  providers: [AppService, IntegrationModule],
 })
 export class AppModule { }

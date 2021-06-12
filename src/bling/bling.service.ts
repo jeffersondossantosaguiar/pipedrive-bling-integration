@@ -13,6 +13,6 @@ export class BlingService {
       `${process.env.BLING_BASE_URL}/pedido/json/?apikey=${process.env.BLING_API_KEY}&xml=${xml}`,
     );
 
-    return result;
+    return result.data;
   }
 }
